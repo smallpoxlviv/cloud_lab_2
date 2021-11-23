@@ -1,0 +1,58 @@
+	creating vpc
+create vpc
+create internet gateway
+attach internet gateway to new vpc
+create subnet in vpc (public)
+allow auto-assign public IPv4 to subnet (make it public)
+edit subnet route table -> add rule: 0.0.0.0/0 - lab_2_internet_gateway and name "public_subnet_route_table"
+create subnet in vpc in diferent avability zone (public)
+allow auto-assign public IPv4 to subnet (make it public)
+choose route table "public_subnet_route_table"
+create subnet in vpc (database)
+create route table "lab_2_database_route_table"
+attach table "lab_2_database_route_table" to databese subnet via "subnet association"
+create subnet in vpc in diferent avability zone (database)
+choose route table "lab_2_database_route_table"
+
+	creating bastion host
+create sequrity group "lab_2_bastion host"
+add inbound rule: 22 port for everyone
+create autoscaling group (launch template first)
+
+	creating database
+create security group in EC2 inbound: 3306 port - 10.0.0.0/16
+create subnet group with two private subnets in diferent avability zone
+create database instance in RDS
+start new connection over ssh in mysql workbench through bastion host
+start cloud_lab_2_river.sql 
+
+	creating lambda
+create the execution role with permission "AWSLambdaVPCAccessExecutionRole" and "AWSLambdaBasicExecutionRole" in IAM
+create deployment package
+create a lambda function with my execution role (edit in permissions in second role)
+connect function to vpc
+upload deployment package
+
+	creating deployment package for lambda
+pip install pymysql 
+create app.py
+create rds_config.py with secrets
+pip install --target ./package pymysql //requested libraries
+zip package folder + app.py and rds_config.py must be in root of zip
+
+create api gateway
+create get and post methods with lambdas you created
+	
+	enabling CORS support on a REST API resource
+choose the api 
+choose a resource under Resources.
+choose Enable CORS from the Actions drop-down menu.
+
+	elastic beanstalk
+create environment
+during creation in "configure more options" edit networking.
+choose your vps and subnets
+
+create codepipeline (skip build stage) - https://faun.pub/how-to-create-cicd-using-github-as-source-and-elastic-beanstalk-244319a2a350
+connect to elasticbeanstalk environment
+
